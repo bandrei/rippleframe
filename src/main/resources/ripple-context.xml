@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+http://www.springframework.org/schema/context 
+http://www.springframework.org/schema/context/spring-context-4.0.xsd"
+
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p">
+
+    <context:annotation-config/>
+    <context:component-scan base-package="com.septacore.*"/>
+
+    <bean id="PinFactory" class="com.septacore.ripple.node.PinFactory" factory-method="getBoxPin" scope="prototype">
+        <constructor-arg><null/></constructor-arg>
+        <constructor-arg value="defaultPinName"/>
+    </bean>
+
+    <bean id="RippleManagerExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="5" />
+        <property name="maxPoolSize" value="10" />
+        <property name="WaitForTasksToCompleteOnShutdown" value="false" />
+    </bean>
+
+</beans>
