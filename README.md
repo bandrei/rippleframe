@@ -287,6 +287,7 @@ Below is an example of how these are used when being passed to an implementation
 and in the Java code
 
 ```
+//note how we inject the BoxConfig and the Utils class into the Box 
 public Prediction(BoxConfig config, Utils utils) throws PPError, IOException, BoxError.BoxConfigError {
 		/**
 		* utils.generatePins(BoxConfig config, boolean isOutputPins);
@@ -353,3 +354,15 @@ IP address and converts it to a number.
 
 The new function definition is being picked up by the `PPAppRegistry` at run-time and applied whenever called. The function must implement the `create` method which returns an `PPAppBase`.
 A `PPAppBase` is in fact a sub-class of `PPBase` but which deals with applied functions as oppposed to constant values (`PPConstantValue`) or variables (`PPVariable`).
+
+
+### Adding a node the network 
+
+
+```
+RippleManager graphManager = ctx.getBean("RippleManager",RippleManager.class);
+//sample extracted from a piece of code which uses an already 
+Box receiver = (DispatchReceiver)ctx.getBean("DispatcherFactory",new Object[]{drConf, ctx.getBean("Utils", Utils.class)});
+graphManager.addNode(receiver);
+graphManager.terminateNetwork();
+```
